@@ -5,13 +5,13 @@ import numpy as np
 
 @njit
 def findPi(num_samples, trials_per_sample):
-  samples = np.zeros((2))
+  samples = np.zeros((num_samples))
   mean = 0.0
 
   for sample in range(num_samples):
-    samples.append(integrateCircle(trials_per_sample))
+    samples[sample] = integrateCircle(trials_per_sample)
 
-  mean = sum(samples) / len(samples)
+  mean = samples.sum() / samples.shape[0]
 
   std_dev = getStdDev(mean, samples)
 
@@ -24,7 +24,7 @@ def getStdDev(mean, samples):
   for sample in samples:
     variance += (sample - mean) ** 2
 
-  variance /= len(samples)
+  variance /= samples.shape[0]
   return math.sqrt(variance)
 
 @njit

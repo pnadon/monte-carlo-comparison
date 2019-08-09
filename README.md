@@ -11,6 +11,7 @@ Here are the results I found:
     - Numba, Numpy: 11s
 - Java: 33s
 - Julia: 2.6s
+- Haskell: 102s
 
 # Machine specs
 ```
