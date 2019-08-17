@@ -11,201 +11,65 @@
  */
 
 
-import java.text.DecimalFormat;
-import java.util.Scanner;
+import java.util.Random;
+import java.util.Arrays;
 
 public class MonteCarlo {
 
   public static void main(String[] args) {
-
-    DecimalFormat sciNot = new DecimalFormat("0.0E0");
-
-    double[] res1 = new double[2];
-    double[] res2 = new double[2];
+    double[] res = {0, 0};
     for (int i = 0; i < 20; i++) {
-      res1 = findPiViaIntegral(1000, 50000);
-      res2[0] += res1[0];
-      res2[1] += res1[1];
+      double[] pi_res = findPi(1000, 50000);
+      res[0] += pi_res[0] / 20;
+      res[1] += pi_res[1] / 20;
     }
-    // Scanner choice = new Scanner(System.in);
-
-    // long[] nums = {
-    //     100,
-    //     1000,
-    //     10000,
-    //     100000,
-    //     1000000,
-    //     10000000,
-    //     100000000,
-    //     1000000000,
-    // };
-
-    // System.out.print( "Choose a method to run: \n" +
-    //     "1: Buffon's needle experiment\n" +
-    //     "2: Buffon's needle experiment, no cos ver. ( May be incorrect!)\n" +
-    //     "3: Finding pi via integrating a circle\n" +
-    //     "4: Both 1 & 3\n\n" +
-    //     "Answer: ");
-    // int example = choice.nextInt();
-
-    // System.out.print( "\nHow many sample points do you want? ( suggested is 20)\n" +
-    //     "Answer: ");
-    // int numSamples = choice.nextInt();
-
-    // switch ( example) {
-
-    //   case 1:
-    //     System.out.println("\n\n______________________________________________________\n" +
-    //         "BUFFON'S NEEDLE SIMULATION RESULTS:\n");
-    //     for( long num : nums)
-    //       simulateBuffonsNeedle( numSamples, num);
-    //     break;
-
-    //   case 2:
-    //     System.out.println("\n\n______________________________________________________\n" +
-    //         "BUFFON'S NEEDLE ALTERNATIVE SIMULATION RESULTS:\n");
-    //     for( long num : nums)
-    //       simulateBuffonsNeedleAlt( numSamples, num);
-    //     break;
-
-    //   case 3:
-    //     System.out.println("\n\n______________________________________________________\n" +
-    //         "COMPUTATION OF PI VIA MONTE CARLO INTEGRATION RESULTS:\n");
-    //     for (long num : nums)
-    //       findPiViaIntegral( numSamples, num);
-    //     break;
-
-    //   case 4:
-    //     System.out.println("\n\n______________________________________________________\n" +
-    //         "BUFFON'S NEEDLE SIMULATION RESULTS:\n");
-    //     for( long num : nums)
-    //       simulateBuffonsNeedle( numSamples, num);
-    //     System.out.println("\n\n______________________________________________________\n" +
-    //         "COMPUTATION OF PI VIA MONTE CARLO INTEGRATION RESULTS:\n");
-    //     for (long num : nums)
-    //       findPiViaIntegral( numSamples, num);
-    // }
-
-
-
-
-
-
+    System.out.println(Arrays.toString(res));
   }
 
-  /**
-   * Runs the Buffons Needle experiment multiple times
-   * to obtain an expected result
-   *
-   * @param numSamples The number of sample points to obtain
-   * @param trialsPerSample The number of thrown needles the method simulates per sample
-   */
-  private static void simulateBuffonsNeedle(int numSamples, long trialsPerSample){
+  private static double[] findPi(int num_samples, int trials_per_sample){
 
-    long startTime = System.nanoTime();
-    DecimalFormat sciNot = new DecimalFormat("0.00E0");
-    double[] samples = new double[numSamples];
+    double[] samples = new double[num_samples];
     double mean = 0;
 
-
-    for( int sample = 0; sample < numSamples; sample++){
-      samples[sample] = PresentationExamples.getBuffonPi(trialsPerSample);
-      mean = mean + samples[sample] / (double)numSamples;
+    for( int sample = 0; sample < num_samples; sample++){
+      samples[sample] = integrateCircle(trials_per_sample);
+      mean = mean + samples[sample] / (double)num_samples;
     }
 
-    double standardDeviation = getStandardDeviation( mean, samples);
+    double std_dev = getStdDev( mean, samples);
 
-    long endTime = System.nanoTime();
-    double duration = (endTime - startTime)/1000000000.0;
-
-    System.out.print( "Using " + numSamples + " trials with " + trialsPerSample + " samples per trial," +
-        "\nexpected value of pi = " + mean +
-        ",\nwith a standard deviation of " + sciNot.format(standardDeviation) + ".\n");
-
-    System.out.println("Simulation of " + sciNot.format(trialsPerSample*numSamples) + " thrown needles took "
-        + sciNot.format(duration) + " seconds.\n");
-  }
-
-
-  /**
-   * Runs the alternate Buffons Needle experiment multiple times
-   * to obtain an expected result
-   *
-   * @param numSamples The number of sample points to obtain
-   * @param trialsPerSample The number of thrown needles the method simulates per sample
-   */
-  private static void simulateBuffonsNeedleAlt(int numSamples, long trialsPerSample){
-
-    long startTime = System.nanoTime();
-    DecimalFormat sciNot = new DecimalFormat("0.00E0");
-    double[] samples = new double[numSamples];
-    double mean = 0;
-
-
-    for( int sample = 0; sample < numSamples; sample++){
-      samples[sample] = PresentationExamples.getBuffonPiAlt(trialsPerSample);
-      mean = mean + samples[sample] / (double)numSamples;
-    }
-
-    double standardDeviation = getStandardDeviation( mean, samples);
-
-    long endTime = System.nanoTime();
-    double duration = (endTime - startTime)/1000000000.0;
-
-    System.out.print( "Using " + numSamples + " trials with " + trialsPerSample + " samples per trial," +
-        "\nexpected value of pi = " + mean +
-        ",\nwith a standard deviation of " + sciNot.format(standardDeviation) + ".\n");
-
-    System.out.println("Simulation of " + sciNot.format(trialsPerSample*numSamples) + " thrown needles took "
-        + sciNot.format(duration) + " seconds.\n");
-  }
-
-
-  /**
-   * Finds pi by integrating a circle via the Monte Carlo method numerous times
-   *
-   * @param numSamples The number of sample points to obtain
-   * @param trialsPerSample The number of thrown needles the method simulates per sample
-   */
-  private static double[] findPiViaIntegral(int numSamples, long trialsPerSample){
-
-    long startTime = System.nanoTime();
-    DecimalFormat sciNot = new DecimalFormat("0.00E0");
-    double[] samples = new double[numSamples];
-    double mean = 0;
-
-    for( int sample = 0; sample < numSamples; sample++){
-      samples[sample] = PresentationExamples.integrateCircle(trialsPerSample);
-      mean = mean + samples[sample] / (double)numSamples;
-    }
-
-    double standardDeviation = getStandardDeviation( mean, samples);
-
-    long endTime = System.nanoTime();
-    double duration = (endTime - startTime)/1000000000.0;
-
-    // System.out.print( "Using " + numSamples + " trials with " + trialsPerSample + " samples per trial," +
-    //     "\nexpected value of pi = " + mean +
-    //     ",\nwith a standard deviation of " + sciNot.format(standardDeviation) + ".\n");
-
-    // System.out.println("Computation of " + sciNot.format(trialsPerSample*numSamples) + " points took "
-    //     + sciNot.format(duration) + " seconds.\n");
     double[] res = new double[2];
     res[0] = mean;
-    res[1] = standardDeviation;
+    res[1] = std_dev;
 
     return res;
   }
 
-  private static double getStandardDeviation(double mean, double[] samples) {
+  private static double integrateCircle(int points_placed) {
+    Random rand = new Random();
+    int counter = 0;
 
-    int numSamples = samples.length;
+    for (int trial = 0; trial < points_placed; trial++) {
+
+      double yPos = rand.nextDouble();
+      double xPos = rand.nextDouble();
+
+      if (yPos * yPos + xPos * xPos <= 1)
+        counter++;
+    }
+
+    return (4.0 * ((double) counter / (double) points_placed));
+  }
+
+  private static double getStdDev(double mean, double[] samples) {
+
+    int num_samples = samples.length;
     double variance = 0;
 
     for (double sample : samples)
       variance += (sample - mean) * (sample - mean);
 
-    variance =  variance / (double) numSamples;
+    variance =  variance / (double) num_samples;
     return Math.sqrt( variance);
   }
 }
