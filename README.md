@@ -38,7 +38,7 @@ Here are the results I found:
 
 # Results on Windows Desktop
 
-1. Julia: 3.010240 seconds (200.82 k allocations: 10.844 MiB)
+1. Julia: 2.976814 seconds (50 allocations: 159.500 KiB)
 2. Crystal: 7.83s user 0.11s system 99% cpu 7.961 total
 3. Python w/ Numba: 10.44s user 0.69s system 103% cpu 10.746 total
 4. C (with -O3): 13.91s user 0.03s system 98% cpu 14.113 total
