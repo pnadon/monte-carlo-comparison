@@ -45,3 +45,4 @@ Here are the results I found:
 5. Fortran (with -O3): 15.42s user 0.03s system 98% cpu 15.671 total
 6. Typescript: 20.67s user 0.48s system 100% cpu 21.000 total
 7. Java: 38.48s user 0.08s system 99% cpu 38.665 total
+8. Ruby: 160s
