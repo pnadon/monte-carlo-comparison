@@ -1,6 +1,8 @@
 # Introduction
 
-The purpose of this project is to compare the performance of multiple different programming languages, when attempting to find the value of pi via plotting random points.
+The purpose of this project is to compare the performance of multiple different programming languages, when attempting to find the value of pi via plotting random points. Comparisons were made using the same number of total iterations.
+
+*disclaimer for Fortran and Haskell*: Both of these do not perform the standard deviation calculation, and / or perform one large loop instead of a smaller inner loop to account for sampling for the standard deviation. However, this should not hinder their respective performance, and if anything should allow them to finish the task sooner for the same number of iterations, although the difference would not be great.
 
 # Results on Macbook Pro
 Here are the results I found:
@@ -40,5 +42,6 @@ Here are the results I found:
 2. Crystal: 7.83s user 0.11s system 99% cpu 7.961 total
 3. Python w/ Numba: 10.44s user 0.69s system 103% cpu 10.746 total
 4. C (with -O3): 13.91s user 0.03s system 98% cpu 14.113 total
-5. Typescript: 20.67s user 0.48s system 100% cpu 21.000 total
-6. Java: 38.48s user 0.08s system 99% cpu 38.665 total
+5. Fortran (with -O3): 15.42s user 0.03s system 98% cpu 15.671 total
+6. Typescript: 20.67s user 0.48s system 100% cpu 21.000 total
+7. Java: 38.48s user 0.08s system 99% cpu 38.665 total
