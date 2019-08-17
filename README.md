@@ -36,8 +36,9 @@ Here are the results I found:
 
 # Results on Windows Desktop
 
-- Julia: 3.010240 seconds (200.82 k allocations: 10.844 MiB)
-- Typescript: 20.67s user 0.48s system 100% cpu 21.000 total
-- Python w/ Numba: 10.44s user 0.69s system 103% cpu 10.746 total
-- Crystal: 7.83s user 0.11s system 99% cpu 7.961 total
-- Java: 38.48s user 0.08s system 99% cpu 38.665 total
+1. Julia: 3.010240 seconds (200.82 k allocations: 10.844 MiB)
+2. Crystal: 7.83s user 0.11s system 99% cpu 7.961 total
+3. Python w/ Numba: 10.44s user 0.69s system 103% cpu 10.746 total
+4. C (with -O3): 13.91s user 0.03s system 98% cpu 14.113 total
+5. Typescript: 20.67s user 0.48s system 100% cpu 21.000 total
+6. Java: 38.48s user 0.08s system 99% cpu 38.665 total
