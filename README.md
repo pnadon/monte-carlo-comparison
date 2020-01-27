@@ -41,8 +41,9 @@ Here are the results I found:
 1. Julia: 2.976814 seconds (50 allocations: 159.500 KiB)
 2. Crystal: 7.83s user 0.11s system 99% cpu 7.961 total
 3. Python w/ Numba: 10.44s user 0.69s system 103% cpu 10.746 total
-4. C (with -O3): 13.91s user 0.03s system 98% cpu 14.113 total
-5. Fortran (with -O3): 15.42s user 0.03s system 98% cpu 15.671 total
-6. Typescript: 20.67s user 0.48s system 100% cpu 21.000 total
-7. Java: 38.48s user 0.08s system 99% cpu 38.665 total
-8. Ruby: 160s
+4. Rust: 13.83s user 0.09s system 99% cpu 13.921 total
+5. C (with -O3): 13.91s user 0.03s system 98% cpu 14.113 total
+6. Fortran (with -O3): 15.42s user 0.03s system 98% cpu 15.671 total
+7. Typescript: 20.67s user 0.48s system 100% cpu 21.000 total
+8. Java: 38.48s user 0.08s system 99% cpu 38.665 total
+9. Ruby: 160s
