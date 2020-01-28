@@ -36,9 +36,11 @@ fn main() {
   let mut res = (0.0, 0.0);
   for _i in 0..20 {
     let pi_res = find_pi(1000, 50000);
-    res.0 = pi_res.0;
-    res.1 = pi_res.1;
+    res.0 += pi_res.0;
+    res.1 += pi_res.1;
   }
   res.0 /= 20.0;
   res.1 /= 20.0;
+
+  println!("{} {}", res.0, res.1);
 }
