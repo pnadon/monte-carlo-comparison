@@ -13,7 +13,6 @@ func getStdDev(mean float64, samples []float64) float64 {
 	for i := 0; i < numSamples; i++ {
 		variance += (samples[i] - mean) * (samples[i] - mean)
 	}
-
 	return math.Sqrt(variance / float64(numSamples))
 }
 
@@ -38,7 +37,7 @@ func findPi(numSamples int, trialsPerSample int) (float64, float64) {
 
 	for sample := 0; sample < numSamples; sample++ {
 		samples[sample] = integrateCircle(trialsPerSample)
-		mean += mean + samples[sample]/float64(numSamples)
+		mean += samples[sample] / float64(numSamples)
 	}
 
 	stdDev := getStdDev(mean, samples)
@@ -54,7 +53,7 @@ func main() {
 		resMean += mean
 		resStdDev += stdDev
 	}
-	resMean /= 20
-	resStdDev /= 20
+	resMean /= 20.0
+	resStdDev /= 20.0
 	fmt.Println(resMean, resStdDev)
 }
